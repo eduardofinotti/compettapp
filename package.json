@@ -1,0 +1,69 @@
+{
+  "name": "compettapp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@brazilian-utils/is-valid-cep": "^0.1.2",
+    "@react-native-community/async-storage": "^1.12.1",
+    "@react-native-community/geolocation": "^2.0.2",
+    "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-community/picker": "^1.8.1",
+    "@react-navigation/bottom-tabs": "^6.0.5",
+    "@react-navigation/native": "^6.0.2",
+    "@react-navigation/stack": "^6.0.7",
+    "axios": "^0.21.4",
+    "buffer": "^6.0.3",
+    "cep-promise": "^4.1.1",
+    "cidades-estados-brasil-json": "^1.0.3",
+    "cities": "^2.0.0",
+    "email-validator": "^2.0.4",
+    "fs": "0.0.1-security",
+    "nearby-cities": "^1.1.0",
+    "nodejs-base64": "^2.0.0",
+    "react": "17.0.2",
+    "react-native": "0.65.1",
+    "react-native-awesome-alerts": "^1.5.2",
+    "react-native-dropdown-picker": "^5.1.27",
+    "react-native-flatlist-header": "^1.0.1",
+    "react-native-geolocation-service": "^5.3.0-beta.2",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-get-location": "^2.1.2",
+    "react-native-image-base64": "^0.1.4",
+    "react-native-image-crop-picker": "^0.36.2",
+    "react-native-modal": "^13.0.0",
+    "react-native-paper": "^4.9.2",
+    "react-native-reanimated": "^2.2.1",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-screens": "^3.7.1",
+    "react-native-vector-icons": "^8.1.0",
+    "react-native-webview": "^11.13.0",
+    "react-native-youtube-iframe": "^2.1.2",
+    "reverse-geocoding": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/runtime": "^7.12.5",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "babel-jest": "^26.6.3",
+    "eslint": "7.14.0",
+    "jest": "^26.6.3",
+    "metro-react-native-babel-preset": "^0.66.0",
+    "react-native-codegen": "^0.0.7",
+    "react-test-renderer": "17.0.2"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
+  }
+}
