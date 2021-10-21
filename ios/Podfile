@@ -20,7 +20,7 @@ target 'CompettApp' do
   pod 'react-native-image-base64', :path => '../node_modules/react-native-image-base64'
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
-
+  pod 'Firebase/Analytics'
   target 'CompettAppTests' do
     inherit! :complete
     # Pods for testing

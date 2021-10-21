@@ -17,6 +17,7 @@
 		7A67570E26F6FD9A0085F9CF /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A67570926F6FD9A0085F9CF /* Poppins-Bold.ttf */; };
 		7A67570F26F6FD9A0085F9CF /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A67570A26F6FD9A0085F9CF /* Poppins-Regular.ttf */; };
 		7A67571026F6FD9A0085F9CF /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A67570B26F6FD9A0085F9CF /* Poppins-SemiBold.ttf */; };
+		7A92E9892721DF2C0096820B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A92E9882721DF2C0096820B /* GoogleService-Info.plist */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		CD8C924DAB4CCF6332B6B7F2 /* libPods-CompettApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED5FC6739FDC3900D987145 /* libPods-CompettApp.a */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,7 @@
 		7A67570926F6FD9A0085F9CF /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		7A67570A26F6FD9A0085F9CF /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		7A67570B26F6FD9A0085F9CF /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		7A92E9882721DF2C0096820B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7ED5FC6739FDC3900D987145 /* libPods-CompettApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CompettApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F24AD9A5D3A47E29352531A /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = CompettApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				7A92E9882721DF2C0096820B /* GoogleService-Info.plist */,
 				7A67570826F6FD9A0085F9CF /* Poppins-BlackItalic.ttf */,
 				7A67570926F6FD9A0085F9CF /* Poppins-Bold.ttf */,
 				7A67570726F6FD9A0085F9CF /* Poppins-Medium.ttf */,
@@ -298,6 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A67570C26F6FD9A0085F9CF /* Poppins-Medium.ttf in Resources */,
+				7A92E9892721DF2C0096820B /* GoogleService-Info.plist in Resources */,
 				7A67570D26F6FD9A0085F9CF /* Poppins-BlackItalic.ttf in Resources */,
 				7A67571026F6FD9A0085F9CF /* Poppins-SemiBold.ttf in Resources */,
 				7A67570E26F6FD9A0085F9CF /* Poppins-Bold.ttf in Resources */,
