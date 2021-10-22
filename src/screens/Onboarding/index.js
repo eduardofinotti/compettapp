@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { StyleSheet, View, Image, ImageBackground, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import Snackbar from 'react-native-snackbar';
 
 import { UserContext } from '../../context/Context';
 const baseUrl = require('../../api/apiConfigDevelop').baseUrl();
@@ -9,6 +10,8 @@ const image_background = require('../../assets/images/image-background.png')
 const logo = require('../../assets/images/logo.png')
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
+
+import messaging from '@react-native-firebase/messaging';
 
 export default function Onboarding({ navigation }) {
 
@@ -21,10 +24,16 @@ export default function Onboarding({ navigation }) {
         navigation.navigate('Login')
     }
 
-    useEffect(async () => {
+    async function saveTokenToDatabase(token) {
+        console.log(token)
+    }
 
+    useEffect(async () => {
         // await AsyncStorage.clear()
         setIsLoading(true)
+
+        getFirebaseToken()
+        getMessages()
 
         let my_token = await AsyncStorage.getItem('@token')
 
@@ -50,6 +59,34 @@ export default function Onboarding({ navigation }) {
             }, 2000);
         }
     }, [])
+
+    function getMessages() {
+        const unsubscribe = messaging().onMessage(async remoteMessage => {
+            console.log('ainnnn')
+            Snackbar.show({
+                text: remoteMessage.notification.body,
+                duration: Snackbar.LENGTH_SHORT,
+                action: {
+                    text: 'OK',
+                    textColor: '#F55B6A',
+                },
+            });
+        });
+
+        return unsubscribe;
+    }
+
+    function getFirebaseToken() {
+        messaging()
+            .getToken()
+            .then(token => {
+                return saveTokenToDatabase(token);
+            });
+
+        return messaging().onTokenRefresh(token => {
+            saveTokenToDatabase(token);
+        });
+    }
 
     return (
         <ImageBackground source={image_background} resizeMode="cover" style={styles.image_background} >

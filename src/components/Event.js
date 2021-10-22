@@ -47,11 +47,11 @@ export default function Event(props, { navigation }) {
             <View style={styles.infoContent}>
                 <View style={styles.titleContent}>
                     <Text style={styles.title}>Floripa BJJ Champion</Text>
-                    <IconW name="long-arrow-right" size={15} color="#fff" />
+                    <IconW style={{ marginRight: 20 }} name="long-arrow-right" size={15} color="#fff" />
                 </View>
 
                 {props.item.ending_subscription &&
-                    <TargetSituation backgroundColor={"#E74C3C"} text={"3 dias pra encerrar incrições"} width={'60%'} />
+                    <TargetSituation backgroundColor={"#E74C3C"} text={"3 dias pra encerrar incrições"} width={'70%'} />
                 }
 
                 {props.item.end_subscription &&
