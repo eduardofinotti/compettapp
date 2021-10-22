@@ -56,6 +56,7 @@
 		7A67570A26F6FD9A0085F9CF /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		7A67570B26F6FD9A0085F9CF /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		7A92E9882721DF2C0096820B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7A92E98A2721EF5D0096820B /* CompettApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = CompettApp.entitlements; path = CompettApp/CompettApp.entitlements; sourceTree = "<group>"; };
 		7ED5FC6739FDC3900D987145 /* libPods-CompettApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CompettApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F24AD9A5D3A47E29352531A /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = CompettApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -114,6 +115,7 @@
 		13B07FAE1A68108700A75B9A /* CompettApp */ = {
 			isa = PBXGroup;
 			children = (
+				7A92E98A2721EF5D0096820B /* CompettApp.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -549,8 +551,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = CompettApp/CompettApp.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5ARWMY2A6V;
+				DEVELOPMENT_TEAM = 96MTTESK5K;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CompettApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -576,8 +579,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = CompettApp/CompettApp.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5ARWMY2A6V;
+				DEVELOPMENT_TEAM = 96MTTESK5K;
 				INFOPLIST_FILE = CompettApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
