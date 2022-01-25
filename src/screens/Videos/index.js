@@ -52,8 +52,8 @@ export default function Videos({ navigation }) {
                 "title": ""
             },
             "paginate": {
-                "page": page,
-                "limitByPage": 5
+                "page": 1,
+                "limitByPage": 1000
             }
         })
             .then(function (response) {
@@ -90,7 +90,7 @@ export default function Videos({ navigation }) {
                 renderItem={({ item }) => (
                     <VideoYoutube item={item} />
                 )}
-                changePage={changePage}
+                // changePage={changePage}
                 keyExtractor={item => item.title}
                 height={70}
                 from={0}

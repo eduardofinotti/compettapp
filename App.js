@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import InitNavigation from './src/routers/InitNavigation';
 import MainNavigation from './src/routers/MainNavigation';
+import InternNavigation from './src/routers/InternNavigation';
 
 import { UserProvider } from './src/context/Context'
 import { StatusBar } from 'react-native';
@@ -22,6 +23,7 @@ export default function App() {
           <Stack.Navigator screenOptions={{ headerShown: false, headerLeft: false, gestureEnabled: false }} >
             <Stack.Screen name="InitNavigation" component={InitNavigation} />
             <Stack.Screen name="MainNavigation" component={MainNavigation} />
+            <Stack.Screen name="InternNavigation" component={InternNavigation} />
           </Stack.Navigator>
         </NavigationContainer>
       </UserProvider>

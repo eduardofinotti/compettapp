@@ -6,7 +6,6 @@ import Input from '../../components/Input';
 
 import { UserContext } from '../../context/Context';
 const logo = require('../../assets/images/logo.png')
-const { base64encode, base64decode } = require('nodejs-base64');
 
 const avatar_logo = require('../../assets/images/avatar-kimono.png')
 const arrow_up = require('../../assets/images/up-arrow.png')
@@ -17,6 +16,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export default function Home({ navigation }) {
 
     const { user, setUser } = useContext(UserContext)
+
+    console.log(user)
 
     const [avatar, setAvatar] = useState('')
     const [search, setSearch] = useState('')
@@ -101,7 +102,6 @@ export default function Home({ navigation }) {
         outputRange: [120, 0],
         extrapolate: 'clamp',
     });
-
     let opacityView = moveCalc.interpolate({
         inputRange: [0, 20],
         outputRange: [1, 0],
@@ -130,17 +130,6 @@ export default function Home({ navigation }) {
         setEvents(newData)
     }
 
-    useEffect(async () => {
-        try {
-            if (user.profile_photo != null) {
-                let decoded_photo = await base64decode(user.profile_photo);
-                await setAvatar(decoded_photo)
-            }
-        } catch (error) {
-            console.log('Não está logado')
-        }
-    }, [])
-
     function onPressFunction() {
         flatlistRef.current.scrollToIndex({ index: 0 });
     }
@@ -150,11 +139,12 @@ export default function Home({ navigation }) {
         AsyncStorage.setItem('@token', "")
         navigation.navigate('Login')
     }
+
     return (
         <SafeAreaView style={styles.content} >
             <View style={styles.headerContent}>
                 <TouchableWithoutFeedback onPress={goToProfile}>
-                    <Image source={avatar ? { uri: `data:image/jpeg;base64,${avatar}` } : avatar_logo} style={styles.avatar} resizeMode="cover" />
+                    <Image source={user.profile_photo ? { uri: user.profile_photo } : avatar_logo} style={styles.avatar} resizeMode="cover" />
                 </TouchableWithoutFeedback>
 
                 <Image source={logo} style={styles.logo} resizeMode="contain" />

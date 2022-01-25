@@ -40,8 +40,8 @@ function HeaderAnimated(props) {
 
             <FlatList
                 {...props}
-                onEndReachedThreshold={0}
-                onEndReached={changePage}
+                // onEndReachedThreshold={0}
+                // onEndReached={changePage}
                 onScroll={
                     Animated.event([
                         {
@@ -54,6 +54,7 @@ function HeaderAnimated(props) {
                         { useNativeDriver: false }
                     )
                 }
+                showsVerticalScrollIndicator={false}
             // scrollEventThrottle={1}
             />
         </View>

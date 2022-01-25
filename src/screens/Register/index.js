@@ -3,8 +3,7 @@ import { StyleSheet, View, Text, KeyboardAvoidingView, Image, Keyboard, Touchabl
 import AwesomeAlert from 'react-native-awesome-alerts';
 
 import { Avatar } from '../../components/Avatar';
-import ImgToBase64 from 'react-native-image-base64';
-const { base64encode, base64decode } = require('nodejs-base64');
+import storage from '@react-native-firebase/storage';
 
 var isValidEmail = require("email-validator");
 import address from 'cep-promise'
@@ -23,13 +22,14 @@ const image_background = require('../../assets/images/belt.png')
 import Input from '../../components/Input';
 import AsyncStorage from '@react-native-community/async-storage';
 
-export default function Register({ navigation }) {
+export default function Register(props) {
+    const { userInfo } = props.route.params
 
     const { user, setUser } = useContext(UserContext)
 
     const [showHeader, setShowHeader] = useState(true);
-
-    const [avatar, setAvatar] = useState('');
+    const [avatarPath, setAvatarPath] = useState('');
+    const [avatarUrl, setAvatarUrl] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [cep, setCep] = useState('');
@@ -42,6 +42,15 @@ export default function Register({ navigation }) {
     const [showWait, setShowWait] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [messageAlert, setMessageAlert] = useState('');
+
+    useEffect(() => {
+        if (userInfo != '') {
+            setEmail(userInfo.user.email)
+            setName(`${userInfo.user.givenName} ${userInfo.user.familyName}`)
+            setAvatarUrl(userInfo.user.photo)
+        }
+
+    }, [])
 
     useEffect(() => {
         const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
@@ -58,7 +67,7 @@ export default function Register({ navigation }) {
     }, []);
 
     function backToLogin() {
-        navigation.navigate('Login')
+        props.navigation.navigate('Login')
     }
 
     async function getAddress(cep) {
@@ -116,11 +125,17 @@ export default function Register({ navigation }) {
 
         setShowWait(true)
 
+        if (userInfo == '') {
+            setAvatarUrl(uploadAvatar())
+        } else {
+            setAvatarUrl(userInfo.user.photo)
+        }
+
         await axios.post(`${baseUrl}/users`, {
             email: email,
             name: name,
             password: password,
-            profile_photo: avatar,
+            profile_photo: avatarUrl,
             address:
             {
                 cep: cep,
@@ -130,6 +145,7 @@ export default function Register({ navigation }) {
             id_user_type: "competitor",
         })
             .then(async function (response) {
+
                 if (response.status == 201) {
                     try {
                         await axios.post(`${baseUrl}/login`, {
@@ -145,20 +161,19 @@ export default function Register({ navigation }) {
                                     } catch (error) {
                                         console.log('Erro ao salvar token do usuário.')
                                     }
-                                    navigation.navigate('MainNavigation')
-                                } else {
-                                    setLoginError(true)
+                                    props.navigation.navigate('MainNavigation')
                                 }
                             })
                             .catch(function (error) {
-                                handlerShowAlert('Erro ao realizar login. Volta para a tela de login e tenta novamente.')
+                                handlerShowAlert('Erro ao realizar login. Volte para a tela de login e tenta novamente.')
                                 console.log(error);
                             });
                     } catch (error) {
                         console.log('Erro ao salvar token do usuário.')
                     }
                 } else {
-                    setLoginError(true)
+                    console.log('Erro ao cadastrar usuario.')
+                    console.log(response)
                 }
             })
             .catch(function (error) {
@@ -168,13 +183,16 @@ export default function Register({ navigation }) {
         setShowWait(false)
     }
 
-    async function onAvatarChange(image) {
-        await ImgToBase64.getBase64String(image.path)
-            .then(base64String => {
-                let encoded = base64encode(base64String); // "aGV5ICB0aGVyZQ=="
-                setAvatar(encoded)
-            })
-            .catch(err => console.log(err));
+    async function uploadAvatar() {
+        const stringRef = new Date().toString()
+        const reference = await storage().ref(stringRef);
+        await reference.putFile(avatarPath);
+        const url = await storage().ref(stringRef).getDownloadURL();
+        return url
+    }
+
+    function onAvatarChange(image) {
+        setAvatarPath(image.path)
     }
 
     return (
@@ -201,11 +219,12 @@ export default function Register({ navigation }) {
                     <View style={{ paddingBottom: 20, marginTop: -80 }}>
                         <Avatar
                             onChange={onAvatarChange}
-                            source={require('../../assets/images/avatar-kimono.png')}
+                            source={userInfo != '' ? { uri: avatarUrl } : require('../../assets/images/avatar-kimono.png')}
                         />
                     </View>
                     <View style={styles.inputContent}>
                         <Input
+                            value={name}
                             placeholder="Nome completo"
                             icon="account"
                             onChange={(txt) => { setName(txt) }}
@@ -214,6 +233,7 @@ export default function Register({ navigation }) {
 
                     <View style={styles.inputContent}>
                         <Input
+                            value={email}
                             placeholder="E-mail"
                             icon="email"
                             autoCapitalize='none'

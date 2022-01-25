@@ -10,7 +10,12 @@ const baseUrl = require('../../api/apiConfigDevelop').baseUrl();
 import Input from '../../components/Input';
 import AsyncStorage from '@react-native-community/async-storage';
 const logo = require('../../assets/images/logo.png')
+const google = require('../../assets/images/google-icon.png')
 const image_background = require('../../assets/images/belt.png')
+
+import { GoogleSignin, statusCodes } from '@react-native-community/google-signin';
+import { WEB_CLIENT_ID } from '../../utils/keys';
+import Divider from '../../components/Divider';
 
 export default function Login({ navigation }) {
 
@@ -22,9 +27,78 @@ export default function Login({ navigation }) {
     const [showAlert, setShowAlert] = useState(false);
     const [loginError, setLoginError] = useState(false);
 
+    const [userInfo, setUserInfo] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        GoogleSignin.configure({
+            webClientId: WEB_CLIENT_ID,
+            offlineAccess: false
+        });
+    }, [])
+
     useEffect(() => {
         setLoginError(false)
     }, [])
+
+    async function loginGoogle() {
+        try {
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
+            setUserInfo(userInfo);
+
+            console.log(userInfo)
+
+            setError(null);
+            setIsLoggedIn(true);
+
+            navigation.navigate('Register', { userInfo })
+
+        } catch (error) {
+            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+                // when user cancels sign in process,
+                alert('Process Cancelled');
+            } else if (error.code === statusCodes.IN_PROGRESS) {
+                // when in progress already
+                alert('Process in progress');
+            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+                // when play services not available
+                alert('Play services are not available');
+            } else {
+                // some other error
+                alert('Something else went wrong... ', error.toString());
+                console.log(error.toString())
+                setError(error);
+            }
+        }
+    }
+
+    async function signOut() {
+        try {
+            await GoogleSignin.revokeAccess();
+            await GoogleSignin.signOut();
+            setIsLoggedIn(false);
+        } catch (error) {
+            alert('Something else went wrong... ', error.toString());
+        }
+    }
+
+    async function getCurrentUserInfo() {
+        try {
+            const userInfo = await GoogleSignin.signInSilently();
+            setUserInfo(userInfo);
+        } catch (error) {
+            if (error.code === statusCodes.SIGN_IN_REQUIRED) {
+                // when user hasn't signed in yet
+                alert('Please Sign in');
+                setIsLoggedIn(false);
+            } else {
+                alert('Something else went wrong... ', error.toString());
+                setIsLoggedIn(false);
+            }
+        }
+    }
 
     async function login() {
         setShowAlert(true)
@@ -58,7 +132,7 @@ export default function Login({ navigation }) {
     }
 
     function goToRegister() {
-        navigation.navigate('Register')
+        navigation.navigate('Register', { userInfo })
     }
 
     return (
@@ -90,12 +164,15 @@ export default function Login({ navigation }) {
                         <Text style={styles.errorText}>Erro ao realizar login. Tente novamente.</Text>
                     }
 
-                    <TouchableOpacity style={styles.forgotPasswordContent} onPress={() => goToRegister()}>
-                        <Text style={styles.forgotPasswordText}>Esqueci minha senha</Text>
-                    </TouchableOpacity>
-
                     <TouchableOpacity style={styles.buttonEnterContent} onPress={() => login()}>
                         <Text style={styles.buttonEnterText}>Entrar</Text>
+                    </TouchableOpacity>
+
+                    <Divider text={'ou'} widthEachLine={'45%'} />
+
+                    <TouchableOpacity style={styles.buttonEnterGoogleContent} onPress={() => loginGoogle()}>
+                        <Image source={google} style={styles.googleIcon} />
+                        <Text style={styles.buttonEnterGoogleText}>Entrar com Google</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.cadastrarContent} onPress={() => goToRegister()}>
@@ -123,7 +200,6 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        // backgroundColor: '#18181c',
         width: '100%'
     },
 
@@ -169,7 +245,6 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
 
-
     forgotPasswordContent: {
         width: '100%',
         alignItems: 'flex-end',
@@ -185,23 +260,44 @@ const styles = StyleSheet.create({
 
     buttonEnterText: {
         color: '#F55B6A',
-        fontSize: 18,
-        fontFamily: 'Poppins-Regular'
+        fontSize: 16,
+        fontFamily: 'Poppins-Regular',
     },
 
     buttonEnterContent: {
-        height: 50,
+        height: 45,
         backgroundColor: '#fff',
-        width: '60%',
-        borderRadius: 10,
+        width: '80%',
+        borderRadius: 8,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 30
     },
 
+    buttonEnterGoogleText: {
+        color: '#4285F4',
+        fontSize: 16,
+        fontFamily: 'Poppins-Regular',
+        paddingHorizontal: 10
+    },
+
+    buttonEnterGoogleContent: {
+        height: 45,
+        backgroundColor: '#fff',
+        width: '80%',
+        borderRadius: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+
+    googleIcon: {
+        width: 20,
+        height: 20
+    },
+
     buttonVisitContent: {
         height: 50,
-        // backgroundColor: '#fff',
         width: '80%',
         borderRadius: 10,
         justifyContent: 'center',

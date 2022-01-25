@@ -4,6 +4,8 @@ import Input from '../../components/Input';
 import AwesomeAlert from 'react-native-awesome-alerts';
 
 import { Avatar } from '../../components/Avatar';
+import storage from '@react-native-firebase/storage';
+
 import ImgToBase64 from 'react-native-image-base64';
 const { base64encode, base64decode } = require('nodejs-base64');
 
@@ -20,13 +22,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const image_background = require('../../assets/images/belt.png')
 const logo = require('../../assets/images/logo-mini-w.png')
-const avatar = require('../../assets/images/photo.png')
+const avatar_logo = require('../../assets/images/avatar-kimono.png')
 
 export default function Register({ navigation }, props) {
 
     const { user, setUser } = useContext(UserContext)
 
-    const [avatar, setAvatar] = useState('');
+    const [avatarPath, setAvatarPath] = useState('');
+    const [avatarUrl, setAvatarUrl] = useState('');
+
     const [isNewAvatar, setIsNewAvatar] = useState(false);
     const [name, setName] = useState(user.name);
     const [email, setEmail] = useState(user.email);
@@ -72,16 +76,15 @@ export default function Register({ navigation }, props) {
 
         setShowWait(true)
 
-        if (!isNewAvatar) {
-            let encoded = base64encode(avatar); // "aGV5ICB0aGVyZQ=="
-            setAvatar(encoded)
+        if (isNewAvatar == true) {
+            setAvatarUrl(uploadAvatar())
         }
 
         await axios.put(`${baseUrl}/users/logged`, {
             email: email,
             name: name,
             password: password,
-            profile_photo: avatar,
+            profile_photo: avatarUrl,
             address:
             {
                 cep: cep,
@@ -97,6 +100,11 @@ export default function Register({ navigation }, props) {
         })
             .then(async function (response) {
                 setUser(response.data)
+
+                console.log('--------------------------')
+                console.log(response.data)
+                console.log('--------------------------')
+
             })
             .catch(function (error) {
                 handlerShowAlert('Erro ao atualizar cadastro. Verifique e tente novamente.')
@@ -118,26 +126,20 @@ export default function Register({ navigation }, props) {
         navigation.navigate('MainNavigation')
     }
 
-    async function onAvatarChange(image) {
-        await ImgToBase64.getBase64String(image.path)
-            .then(base64String => {
-                let encoded = base64encode(base64String); // "aGV5ICB0aGVyZQ=="
-                setAvatar(encoded)
-                setIsNewAvatar(true)
-            })
-            .catch(err => console.log(err));
+    async function uploadAvatar() {
+        const stringRef = new Date().toString()
+        const reference = await storage().ref(stringRef);
+        await reference.putFile(avatarPath);
+        const url = await storage().ref(stringRef).getDownloadURL();
+        return url
+    }
+
+    function onAvatarChange(image) {
+        setAvatarPath(image.path)
+        setIsNewAvatar(true)
     }
 
     useEffect(async () => {
-        try {
-            if (user.profile_photo != null) {
-                let decoded_photo = await base64decode(user.profile_photo);
-                await setAvatar(decoded_photo)
-            }
-        } catch (error) {
-            console.log('Não está logado')
-        }
-
         const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
             setShowHeader(false)
         });
@@ -185,21 +187,13 @@ export default function Register({ navigation }, props) {
                             <TouchableOpacity onPress={() => backToHome()} >
                                 <Icon name="long-arrow-left" size={40} color="#fff" />
                             </TouchableOpacity>
-                            {/* 
-                            <View style={styles.avatar}>
-                                <Avatar
-                                    onChange={onAvatarChange}
-                                    source={avatar ? { uri: `data:image/jpeg;base64,${avatar}` } : require('../../assets/images/avatar-kimono.png')}
-                                />
-                            </View> */}
-
                             <Image source={logo} style={styles.logo} resizeMode="contain" />
                         </View>
                     }
                     <View style={styles.registerContent}>
                         <Avatar
                             onChange={onAvatarChange}
-                            source={avatar ? { uri: `data:image/jpeg;base64,${avatar}` } : require('../../assets/images/avatar-kimono.png')}
+                            source={user.profile_photo ? { uri: user.profile_photo } : avatar_logo}
                         />
                         <View style={styles.inputContent}>
                             <Input

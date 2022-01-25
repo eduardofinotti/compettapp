@@ -12,6 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		61EDA8E14CA834B51DEB0DEC /* libPods-CompettApp-CompettAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC571270A0A61BE9DE0FCB2 /* libPods-CompettApp-CompettAppTests.a */; };
+		7A2679D32739793200B6836A /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A2679D22739793200B6836A /* libRNGoogleSignin.a */; };
 		7A67570C26F6FD9A0085F9CF /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A67570726F6FD9A0085F9CF /* Poppins-Medium.ttf */; };
 		7A67570D26F6FD9A0085F9CF /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A67570826F6FD9A0085F9CF /* Poppins-BlackItalic.ttf */; };
 		7A67570E26F6FD9A0085F9CF /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A67570926F6FD9A0085F9CF /* Poppins-Bold.ttf */; };
@@ -50,6 +51,7 @@
 		46D24C5E60C2772D51EB1495 /* Pods-CompettApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CompettApp.release.xcconfig"; path = "Target Support Files/Pods-CompettApp/Pods-CompettApp.release.xcconfig"; sourceTree = "<group>"; };
 		62E859D4E9F95A56EAD5B08F /* Pods-CompettApp-CompettAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CompettApp-CompettAppTests.release.xcconfig"; path = "Target Support Files/Pods-CompettApp-CompettAppTests/Pods-CompettApp-CompettAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		74BB2DAC25C94799BB15452F /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		7A2679D22739793200B6836A /* libRNGoogleSignin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNGoogleSignin.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A67570726F6FD9A0085F9CF /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		7A67570826F6FD9A0085F9CF /* Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
 		7A67570926F6FD9A0085F9CF /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A2679D32739793200B6836A /* libRNGoogleSignin.a in Frameworks */,
 				CD8C924DAB4CCF6332B6B7F2 /* libPods-CompettApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,6 +132,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7A2679D22739793200B6836A /* libRNGoogleSignin.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				7ED5FC6739FDC3900D987145 /* libPods-CompettApp.a */,
 				9DC571270A0A61BE9DE0FCB2 /* libPods-CompettApp-CompettAppTests.a */,

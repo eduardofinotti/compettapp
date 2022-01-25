@@ -62,7 +62,6 @@ export default function Onboarding({ navigation }) {
 
     function getMessages() {
         const unsubscribe = messaging().onMessage(async remoteMessage => {
-            console.log('ainnnn')
             Snackbar.show({
                 text: remoteMessage.notification.body,
                 duration: Snackbar.LENGTH_SHORT,
